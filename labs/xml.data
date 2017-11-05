@@ -1,0 +1,32 @@
+&lt;movie title="Enemy Behind"&gt;<br>
+   &lt;type&gt;War, Thriller</type><br>
+   &lt;format&gt;DVD</format><br>
+   &lt;year&gt;2003</year><br>
+   &lt;rating&gt;PG</rating><br>
+   &lt;stars&gt;10</stars><br>
+   &lt;description&gt;Talk about a US-Japan war</description><br>
+&lt;/movie&gt;<br>
+&lt;movie title="Transformers"&gt;<br>
+   &lt;type&gt;Anime, Science Fiction</type><br>
+   &lt;format&gt;DVD</format><br>
+   &lt;year&gt;1989</year><br>
+   &lt;rating&gt;R</rating><br>
+   &lt;stars&gt;8</stars><br>
+   &lt;description&gt;A schientific fiction</description><br>
+&lt;/movie&gt;<br>
+   &lt;movie title="Trigun"&gt;<br>
+   &lt;type&gt;Anime, Action</type><br>
+   &lt;format&gt;DVD</format><br>
+   &lt;episodes&gt;4</episodes><br>
+   &lt;rating&gt;PG</rating><br>
+   &lt;stars&gt;10</stars><br>
+   &lt;description&gt;Vash the Stampede!</description><br>
+&lt;/movie&gt;<br>
+&lt;movie title="Ishtar"&gt;<br>
+   &lt;type&gt;Comedy</type><br>
+   &lt;format&gt;VHS</format><br>
+   &lt;rating&gt;PG</rating><br>
+   &lt;stars&gt;2</stars><br>
+   &lt;description&gt;Viewable boredom</description><br>
+&lt;/movie&gt;<br>
+&lt;/collection&gt;<br>

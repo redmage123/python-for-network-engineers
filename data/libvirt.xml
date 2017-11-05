@@ -1,0 +1,237 @@
+<network ipv6='yes' trustGuestRxFilters='no'>
+  <name>default</name>
+  <uuid>3e3fce45-4f53-4fa7-bb32-11f34168b82b</uuid>
+  <metadata>
+    <app1:foo xmlns:app1="http://app1.org/app1/">..</app1:foo>
+    <app2:bar xmlns:app2="http://app1.org/app2/">..</app2:bar>
+  </metadata>
+<bridge name="virbr0" stp="on" delay="5" macTableManager="libvirt"/>
+<mtu size="9000"/>
+<domain name="example.com" localOnly="no"/>
+<forward mode="nat" dev="eth0"/>
+ <forward mode='nat'>
+    <nat>
+      <address start='1.2.3.4' end='1.2.3.10'/>
+    </nat>
+  </forward>
+<forward mode='nat'>
+    <nat>
+      <address start='1.2.3.4' end='1.2.3.10'/>
+    </nat>
+  </forward>
+<forward mode='nat'>
+    <nat>
+      <port start='500' end='1000'/>
+    </nat>
+  </forward>
+<forward mode='passthrough'>
+    <interface dev='eth10'/>
+    <interface dev='eth11'/>
+    <interface dev='eth12'/>
+    <interface dev='eth13'/>
+    <interface dev='eth14'/>
+  </forward>
+<forward mode='passthrough'>
+    <pf dev='eth0'/>
+  </forward>
+<forward mode='hostdev' managed='yes'>
+    <driver name='vfio'/>
+    <address type='pci' domain='0' bus='4' slot='0' function='1'/>
+    <address type='pci' domain='0' bus='4' slot='0' function='2'/>
+    <address type='pci' domain='0' bus='4' slot='0' function='3'/>
+  </forward>
+ <forward mode='hostdev' managed='yes'>
+    <pf dev='eth0'/>
+  </forward>
+<forward mode='nat' dev='eth0'/>
+  <bandwidth>
+    <inbound average='1000' peak='5000' burst='5120'/>
+    <outbound average='128' peak='256' burst='256'/>
+  </bandwidth>
+<network>
+  <name>ovs-net</name>
+  <forward mode='bridge'/>
+  <bridge name='ovsbr0'/>
+  <virtualport type='openvswitch'>
+    <parameters interfaceid='09b11c53-8b5c-4eeb-8f00-d84eaa0aaa4f'/>
+  </virtualport>
+  <vlan trunk='yes'>
+    <tag id='42' nativeMode='untagged'/>
+    <tag id='47'/>
+  </vlan>
+  <portgroup name='dontpanic'>
+    <vlan>
+      <tag id='42'/>
+    </vlan>
+  </portgroup>
+</network>
+ <forward mode='private'/>
+    <interface dev="eth20"/>
+    <interface dev="eth21"/>
+    <interface dev="eth22"/>
+    <interface dev="eth23"/>
+    <interface dev="eth24"/>
+  </forward>
+  <portgroup name='engineering' default='yes'>
+    <virtualport type='802.1Qbh'>
+      <parameters profileid='test'/>
+    </virtualport>
+    <bandwidth>
+      <inbound average='1000' peak='5000' burst='5120'/>
+      <outbound average='1000' peak='5000' burst='5120'/>
+    </bandwidth>
+  </portgroup>
+  <portgroup name='sales' trustGuestRxFilters='no'>
+    <virtualport type='802.1Qbh'>
+      <parameters profileid='salestest'/>
+    </virtualport>
+    <bandwidth>
+      <inbound average='500' peak='2000' burst='2560'/>
+      <outbound average='128' peak='256' burst='256'/>
+    </bandwidth>
+  </portgroup>
+<ip address="192.168.122.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.122.128" end="192.168.122.254"/>
+    </dhcp>
+  </ip>
+  <route address="192.168.222.0" prefix="24" gateway="192.168.122.2"/>
+  <ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64"/>
+  <route family="ipv6" address="2001:db8:ca2:3::" prefix="64" gateway="2001:db8:ca2:2::2"/>
+  <route family="ipv6" address="2001:db9:4:1::" prefix="64" gateway="2001:db8:ca2:2::3" metric='2'/>
+<mac address='00:16:3E:5D:C7:9E'/>
+<domain name="example.com"/>
+<dns>
+  <txt name="example" value="example value"/>
+  <forwarder addr="8.8.8.8"/>
+  <forwarder domain='example.com' addr="8.8.4.4"/>
+  <forwarder domain='www.example.com'/>
+  <srv service='name' protocol='tcp' domain='test-domain-name' target='.'
+    port='1024' priority='10' weight='10'/>
+  <host ip='192.168.122.2'>
+    <hostname>myhost</hostname>
+    <hostname>myhostalias</hostname>
+  </host>
+</dns>
+<ip address="192.168.122.1" netmask="255.255.255.0" localPtr="yes">
+  <dhcp>
+    <range start="192.168.122.100" end="192.168.122.254"/>
+    <host mac="00:16:3e:77:e2:ed" name="foo.example.com" ip="192.168.122.10"/>
+    <host mac="00:16:3e:3e:a9:1a" name="bar.example.com" ip="192.168.122.11"/>
+  </dhcp>
+</ip>
+<ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64" localPtr="yes"/>
+<route family="ipv6" address="2001:db9:ca1:1::" prefix="64" gateway="2001:db8:ca2:2::2"/>
+<network>
+  <name>default</name>
+  <bridge name="virbr0"/>
+  <forward mode="nat"/>
+  <ip address="192.168.122.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.122.2" end="192.168.122.254"/>
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64"/>
+</network>
+<network>
+  <name>default6</name>
+  <bridge name="virbr0"/>
+  <forward mode="nat"/>
+  <ip address="192.168.122.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.122.2" end="192.168.122.254"/>
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64">
+    <dhcp>
+      <range start="2001:db8:ca2:2:1::10" end="2001:db8:ca2:2:1::ff"/>
+    </dhcp>
+  </ip>
+</network>
+<network>
+  <name>local</name>
+  <bridge name="virbr1"/>
+  <forward mode="route" dev="eth1"/>
+  <ip address="192.168.122.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.122.2" end="192.168.122.254"/>
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64"/>
+</network>
+<network>
+  <name>local6</name>
+  <bridge name="virbr1"/>
+  <forward mode="route" dev="eth1"/>
+  <ip address="192.168.122.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.122.2" end="192.168.122.254"/>
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:ca2:2::1" prefix="64">
+    <dhcp>
+      <host name="paul" ip="2001:db8:ca2:2:3::1"/>
+      <host id="0:1:0:1:18:aa:62:fe:0:16:3e:44:55:66" ip="2001:db8:ca2:2:3::2"/>
+      <host id="0:3:0:1:0:16:3e:11:22:33" name="ralph" ip="2001:db8:ca2:2:3::3"/>
+      <host id="0:4:7e:7d:f0:7d:a8:bc:c5:d2:13:32:11:ed:16:ea:84:63"
+        name="badbob" ip="2001:db8:ca2:2:3::4"/>
+    </dhcp>
+  </ip>
+</network>
+<network>
+  <name>net7</name>
+  <bridge name="virbr7"/>
+  <forward mode="route"/>
+  <ip family="ipv6" address="2001:db8:ca2:7::1" prefix="64">
+    <dhcp>
+      <range start="2001:db8:ca2:7::100" end="2001:db8:ca2::1ff"/>
+      <host id="0:4:7e:7d:f0:7d:a8:bc:c5:d2:13:32:11:ed:16:ea:84:63"
+        name="lucas" ip="2001:db8:ca2:2:3::4"/>
+    </dhcp>
+  </ip>
+  <route family="ipv6" address="2001:db8:ca2:8::" prefix="64" gateway="2001:db8:ca2:7::4"/>
+</network>
+<network>
+  <name>private</name>
+  <bridge name="virbr2"/>
+  <ip address="192.168.152.1" netmask="255.255.255.0">
+    <dhcp>
+      <range start="192.168.152.2" end="192.168.152.254"/>
+    </dhcp>
+  </ip>
+  <ip family="ipv6" address="2001:db8:ca2:3::1" prefix="64"/>
+</network>
+<network>
+  <name>sixnet</name>
+  <bridge name="virbr6"/>
+  <ip family="ipv6" address="2001:db8:ca2:6::1" prefix="64">
+    <dhcp>
+      <host name="peter" ip="2001:db8:ca2:6:6::1"/>
+      <host id="0:1:0:1:18:aa:62:fe:0:16:3e:44:55:66" ip="2001:db8:ca2:6:6::2"/>
+      <host id="0:3:0:1:0:16:3e:11:22:33" name="dariusz" ip="2001:db8:ca2:6:6::3"/>
+      <host id="0:4:7e:7d:f0:7d:a8:bc:c5:d2:13:32:11:ed:16:ea:84:63"
+        name="anita" ip="2001:db8:ca2:6:6::4"/>
+    </dhcp>
+  </ip>
+</network>
+<network>
+  <name>host-bridge</name>
+  <forward mode="bridge"/>
+  <bridge name="br0"/>
+</network>
+<network>
+  <name>direct-macvtap</name>
+  <forward mode="bridge">
+    <interface dev="eth20"/>
+    <interface dev="eth21"/>
+    <interface dev="eth22"/>
+    <interface dev="eth23"/>
+    <interface dev="eth24"/>
+  </forward>
+</network>
+<network ipv6='yes'>
+  <name>nogw</name>
+  <uuid>7a3b7497-1ec7-8aef-6d5c-38dff9109e93</uuid>
+  <bridge name="virbr2" stp="on" delay="0"/>
+  <mac address='00:16:3E:5D:C7:9E'/>
+</network>
